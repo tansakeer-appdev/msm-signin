@@ -38,7 +38,10 @@
       <button>
         Bookmark this movie
       </button>
+      
     </form>
+  
+
   </div>
 </div>
 
@@ -69,6 +72,9 @@
 
         <th>
         </th>
+        <th>
+        Delete Movie
+        </th>
       </tr>
 
       <% @list_of_bookmarks.each do |a_bookmark| %>
@@ -97,6 +103,13 @@
             Show details
           </a>
         </td>
+
+        <td>
+        <a href="/delete_bookmark/<%= a_bookmark.id %>">
+          Un-bookmark
+        </a>
+        </td>
+
       </tr>
       <% end %>
     </table>
