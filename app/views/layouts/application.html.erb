@@ -29,7 +29,7 @@
       <a href="/characters">Characters</a>
     </li>
       
-    <% if session.fetch(:user_id) == nil # not signed in %>
+    <% if @current_user == nil # not signed in %>
     <li>
       <a href="/user_sign_up">Sign Up</a>
     </li>

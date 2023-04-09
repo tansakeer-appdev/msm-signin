@@ -5,6 +5,24 @@
       Movie #<%= @the_movie.id %> details
     </h1>
 
+    <%# we need it to show up unbookmark, if already bookmarked %>
+    <%# user needs to be signed in thus we need to match user and match movie%>
+  <% if @current_user != nil %>
+
+      <% current_user_bookmarks =  @current_user.bookmarks.where({ :movie_id => @the_movie.ed }) %>
+      <% the_bookmark = current_user_bookmarks.at(0) %>
+
+        <% if the_bookmark == nil  %>
+          <form action="/insert_bookmark"  method="post">
+          <input type="hidden" name="query_movie_id" value="<%= @the_movie.id %>">
+          <button>Bookmark this movie!</button>
+           </form>
+          <% else %>
+          <a href="/delete_bookmark/<%= the_bookmark.id %>">Un-bookmark</a>
+        <% end %>
+    <% end %>
+
+
     <div>
       <div>
         <a href="/movies">
@@ -18,26 +36,6 @@
         </a>
       </div>
     </div>
-
-    <hr>
-    <%# we need it to show up unbookmark, if already bookmarked %>
-    <%# user needs to be signed in thus we need to match user and match movie%>
-    
-    <% current_user_bookmarks =  Bookmark.where({:movie_id => @the_movie.id, :user_id => session.fetch(:user_id) }) %>
-
-    <% the_bookmark = current_user_bookmarks.at(0) %>
-
-    <% if session.fetch(:user_id)  %>
-
-        <% if the_bookmark == nil  %>
-          <form action="/insert_bookmark"  method="post">
-          <input type="hidden" name="query_movie_id" value="<%= @the_movie.id %>">
-          <button>Bookmark this movie!</button>
-           </form>
-          <% else %>
-          <a href="/delete_bookmark/<%= the_bookmark.id %>">Un-bookmark</a>
-        <% end %>
-    <% end %>
 
     <dl>
       <dt>
